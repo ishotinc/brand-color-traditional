@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { PrivacyPolicy } from '../components/PrivacyPolicy';
 
 interface FormData {
   mail: string;
@@ -12,6 +13,7 @@ interface FormData {
 export function LandingPage() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     mail: '',
     free22: '',
@@ -277,7 +279,22 @@ export function LandingPage() {
             </motion.div>
           </motion.div>
         </div>
+        
+        <div className="text-center mt-16 pt-8 border-t border-gray-200">
+          <button
+            onClick={() => setIsPrivacyPolicyOpen(true)}
+            className="text-gray-600 hover:text-gray-800 underline text-sm transition-colors"
+          >
+            Privacy Policy
+          </button>
+          <p className="text-gray-500 text-xs mt-2">© 2025 i-SHOT Inc. All rights reserved.</p>
+        </div>
       </div>
+      
+      <PrivacyPolicy 
+        isOpen={isPrivacyPolicyOpen}
+        onClose={() => setIsPrivacyPolicyOpen(false)}
+      />
     </div>
   );
 }
