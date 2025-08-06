@@ -4,7 +4,7 @@ import { QuestionnaireForm } from '../components/QuestionnaireForm';
 
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: Record<string, unknown>[];
   }
 }
 
@@ -17,7 +17,14 @@ export function QuestionnairePage() {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       'event': 'page_view',
-      'page_path': window.location.pathname
+      'page_path': window.location.pathname,
+      'page_location': window.location.href,
+      'page_title': 'Questionnaire Page'
+    });
+    
+    // Also push a custom event for the questionnaire page view
+    window.dataLayer.push({
+      'event': 'questionnaire_page_view'
     });
   }, []);
 
