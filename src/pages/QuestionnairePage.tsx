@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { QuestionnaireForm } from '../components/QuestionnaireForm';
+
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
 
 export function QuestionnairePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const formData = location.state?.formData;
+
+  useEffect(() => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'page_view',
+      'page_path': window.location.pathname
+    });
+  }, []);
 
   const [questionnaireData, setQuestionnaireData] = useState({
     companyName: '',
